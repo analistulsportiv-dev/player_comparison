@@ -4,6 +4,7 @@ from data_loader import DatasetLoader, load_player_data
 from stats_processor import StatsProcessor
 from chart_plotter import RadarChartPlotter
 from enums import Position, Stats
+import datetime as dt
 
 class PlayerComparisonApp:
     def __init__(self):
@@ -215,7 +216,7 @@ def run_squad_overview():
     df["BirthDate"] = pd.to_datetime(df["BirthDate"], dayfirst=True, errors="coerce")
     df["StartDate"] = pd.to_datetime(df["StartDate"], dayfirst=True, errors="coerce")
     df["EndDate"] = pd.to_datetime(df["EndDate"], dayfirst=True, errors="coerce")
-    today = pd.to_datetime(dt.datetime.today().date())
+    today = dt.date.today()
     df["Age"] = (today - df["BirthDate"]).dt.days / 365.25
     df["AgeStart"] = (df["StartDate"] - df["BirthDate"]).dt.days / 365.25
     df["AgeEnd"] = (df["EndDate"] - df["BirthDate"]).dt.days / 365.25
@@ -408,4 +409,5 @@ if __name__ == "__main__":
 
     with tab2:
         run_squad_overview()
+
 
