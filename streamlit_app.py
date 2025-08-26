@@ -216,7 +216,7 @@ def run_squad_overview():
     df["BirthDate"] = pd.to_datetime(df["BirthDate"], dayfirst=True, errors="coerce")
     df["StartDate"] = pd.to_datetime(df["StartDate"], dayfirst=True, errors="coerce")
     df["EndDate"] = pd.to_datetime(df["EndDate"], dayfirst=True, errors="coerce")
-    today = dt.date.today()
+    today = pd.Timestamp.today().normalize()
     df["Age"] = (today - df["BirthDate"]).dt.days / 365.25
     df["AgeStart"] = (df["StartDate"] - df["BirthDate"]).dt.days / 365.25
     df["AgeEnd"] = (df["EndDate"] - df["BirthDate"]).dt.days / 365.25
@@ -409,5 +409,6 @@ if __name__ == "__main__":
 
     with tab2:
         run_squad_overview()
+
 
 
