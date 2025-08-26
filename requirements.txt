@@ -2,4 +2,5 @@ matplotlib
 pandas
 streamlit
 openpyxl
+mplsoccer 
 numpy
