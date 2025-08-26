@@ -215,7 +215,7 @@ def run_squad_overview():
     df["BirthDate"] = pd.to_datetime(df["BirthDate"], dayfirst=True, errors="coerce")
     df["StartDate"] = pd.to_datetime(df["StartDate"], dayfirst=True, errors="coerce")
     df["EndDate"] = pd.to_datetime(df["EndDate"], dayfirst=True, errors="coerce")
-    today = pd.to_datetime(dt.date.today())
+    today = pd.to_datetime(dt.datetime.today().date())
     df["Age"] = (today - df["BirthDate"]).dt.days / 365.25
     df["AgeStart"] = (df["StartDate"] - df["BirthDate"]).dt.days / 365.25
     df["AgeEnd"] = (df["EndDate"] - df["BirthDate"]).dt.days / 365.25
@@ -395,11 +395,17 @@ def run_squad_overview():
 # MAIN APP ENTRYPOINT
 # ---------------------------
 if __name__ == "__main__":
-    st.sidebar.title("🔧 Toolbar")
-    app_mode = st.sidebar.radio("Choose a view:", ["Player Comparison", "Squad Overview"])
+    st.set_page_config(layout="wide")
 
-    if app_mode == "Player Comparison":
+    st.title("Football Analytics Dashboard")
+
+    # 🔥 Horizontal toolbar with tabs
+    tab1, tab2 = st.tabs(["⚽ Player Comparison", "📊 Squad Overview"])
+
+    with tab1:
         app = PlayerComparisonApp()
         app.run()
-    elif app_mode == "Squad Overview":
+
+    with tab2:
         run_squad_overview()
+
